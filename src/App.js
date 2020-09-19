@@ -2,6 +2,7 @@ import React from "react";
 import { Jumbotron, Button, Container } from "react-bootstrap";
 import "./App.css";
 import AppNavbar from "./components/AppNavbar";
+import SearchBar from "./components/SearchBar";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
             <Button variant="primary">See Available</Button>
           </Jumbotron>
         </header>
+        <br />
+        <SearchBar />
       </Container>
     </div>
   );
