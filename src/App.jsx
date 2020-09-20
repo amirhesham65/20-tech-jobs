@@ -3,6 +3,7 @@ import { Jumbotron, Button, Container, Card, Row, Col } from "react-bootstrap";
 import "./App.css";
 import AppNavbar from "./components/AppNavbar";
 import SearchBar from "./components/SearchBar";
+import Skeleton from 'react-loading-skeleton';
 
 function App() {
   const [data, setData] = useState([]);
@@ -20,12 +21,9 @@ function App() {
           <Jumbotron>
             <h1>Welcome to 20TechJobs</h1>
             <p>
-              A web app that searches for the latest 20 jobs related to a
-              certain keyword fetched from different sources and APIs powered by{" "}
-              <a href="https://github.com/amirhesham65/tech-jobs-api">
-                TechJobs API
-              </a>
-              .
+              A web app that searches for the latest 20 jobs related to a certain
+              keyword fetched from different sources and APIs powered by{" "}
+              <a href="https://github.com/amirhesham65/tech-jobs-api">TechJobs API</a>.
             </p>
             <Button variant="primary">See Available</Button>
           </Jumbotron>
@@ -37,37 +35,25 @@ function App() {
           <Card>
             <Card.Header as="h5">Results</Card.Header>
             <Card.Body>
-              {data.map((job) => (
+              {data.length ? data.map((job) => (
                 <Card key={job.id} style={{ margin: "20px 0" }}>
                   <Card.Body>
                     <Container fluid>
                       <Row>
                         <Col sm={8}>
                           <Card.Title>
-                            {
-                              <div
-                                dangerouslySetInnerHTML={{ __html: job.title }}
-                              />
-                            }
+                            <div dangerouslySetInnerHTML={{ __html: job.title }} />
                           </Card.Title>
                           <Card.Subtitle>
-                            {
-                              <div
-                                dangerouslySetInnerHTML={{
-                                  __html: job.company,
-                                }}
-                              />
-                            }
+                            <div dangerouslySetInnerHTML={{__html: job.company, }} />
                           </Card.Subtitle>
                           <Card.Text>
-                            <span
-                              dangerouslySetInnerHTML={{ __html: job.location }}
-                            />
+                            <span dangerouslySetInnerHTML={{ __html: job.location }} />
                           </Card.Text>
                           <Button variant="primary">Apply</Button>
                         </Col>
                         <Col sm={4} style={{padding:"30px 10px"}}>
-                          <Card.Img  style={{maxWidth: "200px"}} src={job.company_logo} />
+                          <Card.Img style={{maxHeight: "100px", maxWidth: "200px", objectFit: "contain"}} src={job.company_logo} />
                         </Col>
                       </Row>
                     </Container>
@@ -76,7 +62,7 @@ function App() {
                     {new Date(job.created_at).toUTCString()}
                   </Card.Footer>
                 </Card>
-              ))}
+              )) : <div style={{ fontSize: 50, lineHeight: 1.5 }}><Skeleton count={20} /></div>}
             </Card.Body>
           </Card>
         </div>

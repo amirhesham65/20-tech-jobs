@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, InputGroup, FormControl } from "react-bootstrap";
 
 function SearchBar({ onDataFetched }) {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState("developer");
+
+  useEffect(() => {
+    handleSearch();
+  }, []);
 
   const handleSearch = async () => {
+    onDataFetched([]);
     if (searchValue.trim()) {
       const url = `https://tech-jobs-api-deploy.herokuapp.com/jobs/${searchValue}`;
       try {
@@ -43,7 +48,7 @@ function SearchBar({ onDataFetched }) {
       <InputGroup.Append>
         <Button
           variant="outline-secondary"
-          onClick={() => handleSearch("swift")}
+          onClick={handleSearch}
         >
           Search
         </Button>
